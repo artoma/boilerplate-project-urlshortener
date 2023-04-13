@@ -61,6 +61,10 @@ const saveUrl = async (original_url) => {
   });
   return await urlDocument.save();
 }
+app.get('/api/shorturl/:short_url', async (req, res) => {
+  const result = await _URL.findOne({short_url: req.params.short_url});
+  res.redirect(307, result.original_url);
+})
 app.listen(port, function() {
   console.log(`Listening on port ${port}`);
 });
